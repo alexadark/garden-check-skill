@@ -72,6 +72,18 @@ End with a two-line summary: total findings by group, and the single change that
 If the setup is clean, say so plainly and name the one thing worth watching as it grows. Do not invent findings to fill the report.
 </output>
 
+<delegation>
+Optional. Skip this on a small setup, where one pass costs almost nothing. It earns its keep once the scan spans many projects, a large rules folder, or dozens of skills, because reading all those files is where the tokens go.
+
+Split the work by what it demands, following the `efficient-delegation` skill:
+
+DELEGATE the scanning to cheaper sub-agents, one per area (global CLAUDE.md and rules, project CLAUDE.md files, memory, skill folders). Checks 1, 2, 3, 4, 6 and 7 are mechanical: does this path exist, does this glob match anything, does this YAML parse, is this file linked. Each sub-agent returns its findings as structured data, nothing more.
+
+KEEP for the main model: check 5, which is a judgment call about whether a rule deserves to load every session; check 8, which needs every area in one head at once to spot the same instruction written twice; and the final priority ranking. The ranking is what makes the report actionable rather than a list, so never hand it off.
+
+Verify before reporting. A sub-agent claiming a path is dead is a lead, not a fact. Re-check any finding before it reaches the user.
+</delegation>
+
 <success_criteria>
 - Every finding names a real file and a real line the user can open
 - No file was modified
