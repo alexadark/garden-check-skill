@@ -1,6 +1,6 @@
 ---
 name: garden-check
-description: Audits a Claude Code setup read-only and reports what has rotted: dead file references, rules whose paths match nothing, orphaned memory entries, duplicated instructions. Use for "garden check", "weed the garden", "audit my claude setup", or when a rule or skill never seems to fire.
+description: Audits a Claude Code setup read-only and reports what has rotted, including dead file references, rules whose paths match nothing, orphaned memory entries, and duplicated instructions. Use for "garden check", "weed the garden", "audit my claude setup", or when a rule or skill never seems to fire.
 ---
 
 <objective>
@@ -42,6 +42,8 @@ Run all eight. Each finding names the file, the line, and one concrete fix.
 2. DEAD PATHS — Extract every file path, folder path, and command name mentioned in CLAUDE.md and in the rules. Check each one exists. A path that no longer resolves is an instruction pointing at nothing, and Claude will follow it anyway.
 
 3. BROKEN FRONT MATTER — Every file in `rules/` and every SKILL.md must open with valid front matter: three dashes, the fields, three dashes. Flag any file missing it or with malformed YAML. A rule with broken front matter is invisible.
+
+   Parse the YAML, do not eyeball it. The common break is a colon followed by a space inside an unquoted value, as in `description: Reports what rotted: dead paths`. YAML reads the second colon as a new key and the file fails to parse. Fix by rewording to drop the inner colon, or by quoting the whole value.
 
 4. RULES THAT NEVER FIRE — For each rule carrying a `paths:` field, check the pattern matches at least one file that actually exists. A pattern matching nothing is a rule the user believes is active and which has never once loaded. This is the highest-value check: it fails silently.
 
