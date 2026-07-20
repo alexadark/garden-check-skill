@@ -1,6 +1,6 @@
 ---
 name: garden-check
-description: Audits a Claude Code setup and reports what has rotted — dead file references in CLAUDE.md, rules whose paths never match anything, rules that load every session without earning it, memory entries pointing at files that no longer exist, oversized CLAUDE.md, and the same instruction written in two places. Read-only, never edits. Use when the user says "garden check", "weed the garden", "audit my claude setup", "check my CLAUDE.md", "are my rules still working", "is my memory stale", "clean up my claude config", "vérifie mon setup claude", "désherbe mon jardin", or asks why a rule or skill never seems to fire.
+description: Audits a Claude Code setup read-only and reports what has rotted: dead file references, rules whose paths match nothing, orphaned memory entries, duplicated instructions. Use for "garden check", "weed the garden", "audit my claude setup", or when a rule or skill never seems to fire.
 ---
 
 <objective>
